@@ -23,6 +23,9 @@ class ImagesViewModel @Inject constructor(
     private var _uiState = MutableStateFlow<UiState<GetRecentImagesResponseDo>>(UiState.Loading)
     val uiState: StateFlow<UiState<GetRecentImagesResponseDo>> = _uiState
 
+    init {
+        getRecentImages()
+    }
     fun getRecentImages() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading

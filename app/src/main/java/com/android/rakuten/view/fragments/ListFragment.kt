@@ -9,9 +9,7 @@ import android.widget.ListView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import com.android.rakuten.R
 import com.android.rakuten.data.model.GetRecentImagesResponseDo
@@ -53,7 +51,6 @@ class ListFragment : Fragment() {
     }
 
     private fun initViews() {
-        listViewModel.getRecentImages()
         adapter = ImageListAdapter(requireContext(), arrayListOf()) {
             val bundle = bundleOf()
             bundle.putSerializable(photoObject, it)
@@ -62,10 +59,46 @@ class ListFragment : Fragment() {
         binding.listImages.adapter = adapter
     }
 
+
+    private fun initObserver() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            listViewModel.uiState.collect {
+                handleViews(it)
+                when (it) {
+                    is UiState.Success -> {
+                        adapter.refreshList(it.data.photos?.photosList ?: arrayListOf())
+                        setupListView(
+                            binding.listImages,
+                            HeaderBinding.inflate(layoutInflater).root,
+                            binding.quickReturnView
+                        )
+                    }
+                    is UiState.Loading -> {
+                    }
+                    is UiState.Error -> {
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleViews(uiState: UiState<GetRecentImagesResponseDo>) {
+        binding.progress.visibility = View.GONE
+        binding.listImages.visibility = View.GONE
+        binding.errorText.visibility = View.GONE
+        when (uiState) {
+            is UiState.Success -> {
+                binding.quickReturnView.visibility = View.VISIBLE
+                binding.listImages.visibility = View.VISIBLE
+            }
+            is UiState.Loading -> binding.progress.visibility = View.VISIBLE
+            is UiState.Error -> binding.errorText.visibility = View.VISIBLE
+        }
+    }
+
     private fun setupListView(listView: ListView, header: View, quickReturnView: View) {
         val params = AbsListView.LayoutParams(
-            AbsListView.LayoutParams.MATCH_PARENT,
-            AbsListView.LayoutParams.MATCH_PARENT
+            AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT
         )
         header.layoutParams = params
         listView.addHeaderView(header)
@@ -77,14 +110,16 @@ class ListFragment : Fragment() {
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
             override fun onScroll(
                 view: AbsListView, firstVisibleItem: Int,
-                visibleItemCount: Int, totalItemCount: Int) {
+                visibleItemCount: Int, totalItemCount: Int,
+            ) {
                 scrollY = 0
                 var translationY = 0
                 if (listView.isScrollYComputed()) {
                     scrollY = listView.getComputedScrollY()
                 }
                 val placeHolder = header.findViewById<View>(R.id.holder)
-                val rawY: Int = placeHolder.top - min(cachedVerticalScrollRange - listView.height, scrollY)
+                val rawY: Int =
+                    placeHolder.top - min(cachedVerticalScrollRange - listView.height, scrollY)
                 when (state) {
                     STATE_OFFSCREEN -> {
                         if (rawY <= minRawY) {
@@ -123,36 +158,6 @@ class ListFragment : Fragment() {
             override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {}
         })
     }
-    private fun initObserver() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                listViewModel.uiState.collect {
-                    handleViews(it)
-                    when (it) {
-                        is UiState.Success -> {
-                            adapter.refreshList(it.data.photos?.photosList?: arrayListOf())
-                            setupListView(binding.listImages, HeaderBinding.inflate(layoutInflater).root ,binding.quickReturnView)
-                        }
-                        is UiState.Loading -> {
-                        }
-                        is UiState.Error -> {
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun handleViews(uiState: UiState<GetRecentImagesResponseDo>) {
-        binding.progress.visibility = View.GONE
-        binding.listImages.visibility = View.GONE
-        binding.errorText.visibility = View.GONE
-        when (uiState) {
-            is UiState.Success -> binding.listImages.visibility = View.VISIBLE
-            is UiState.Loading -> binding.progress.visibility = View.VISIBLE
-            is UiState.Error -> binding.errorText.visibility = View.VISIBLE
-        }
-    }
 
     companion object {
         private const val STATE_ONSCREEN = 0
@@ -160,4 +165,5 @@ class ListFragment : Fragment() {
         private const val STATE_RETURNING = 2
         var photoObject: String = "photoObject"
     }
+
 }

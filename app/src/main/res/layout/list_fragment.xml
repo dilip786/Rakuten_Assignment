@@ -41,6 +41,7 @@
     <TextView
         android:id="@+id/quickReturnView"
         style="@style/TextViewTheme"
+        android:visibility="gone"
         android:text="@string/header_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
