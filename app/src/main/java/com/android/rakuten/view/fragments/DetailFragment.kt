@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.android.rakuten.R
 import com.android.rakuten.data.model.Photo
 import com.android.rakuten.databinding.DetailsFragmentBinding
 import com.android.rakuten.viewmodel.ImagesViewModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
-@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class DetailFragment : Fragment()  {
     private val listViewModel: ImagesViewModel by activityViewModels()
@@ -37,6 +38,22 @@ class DetailFragment : Fragment()  {
             arguments?.getSerializable(ListFragment.photoObject,Photo::class.java)
         } else {
             arguments?.getSerializable(ListFragment.photoObject) as? Photo
+        }
+
+        photo?.let {
+            Picasso.get()
+                .load("https://live.staticflickr.com/${it.server}/${it.id}_${it.secret}_w.jpg")
+                .into(binding.ivPhotoImage)
+            binding.tvPhotoTitle.text = resources.getString(R.string.title_des, it.title)
+            binding.tvPhotoId.text = resources.getString(R.string.id, it.id)
+            binding.tvPhotoOwner.text = resources.getString(R.string.owner, it.owner)
+            binding.tvPhotoSecret.text = resources.getString(R.string.secret, it.secret)
+            binding.tvPhotoServer.text = resources.getString(R.string.server, it.server)
+            binding.tvPhotoFarm.text = resources.getString(R.string.farm, it.farm)
+            binding.tvIsPublic.text = resources.getString(R.string.is_public, it.ispublic)
+            binding.tvIsFriend.text = resources.getString(R.string.is_friend, it.isfriend)
+            binding.tvIsFamily.text = resources.getString(R.string.is_family, it.isfamily)
+            listViewModel.setTitle(it.title?:resources.getString(R.string.title))
         }
     }
 }

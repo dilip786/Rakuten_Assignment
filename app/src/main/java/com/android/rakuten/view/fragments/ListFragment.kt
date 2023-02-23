@@ -80,6 +80,11 @@ class ListFragment : Fragment() {
                 }
             }
         }
+        lifecycleScope.launch(Dispatchers.Main) {
+            listViewModel.uiTitle.collect { title ->
+                title?.let { binding.tvTitle.text = it }
+            }
+        }
     }
 
     private fun handleViews(uiState: UiState<GetRecentImagesResponseDo>) {
@@ -165,5 +170,4 @@ class ListFragment : Fragment() {
         private const val STATE_RETURNING = 2
         var photoObject: String = "photoObject"
     }
-
 }

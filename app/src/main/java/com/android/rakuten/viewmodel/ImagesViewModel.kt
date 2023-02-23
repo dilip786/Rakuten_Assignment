@@ -1,6 +1,5 @@
 package com.android.rakuten.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.rakuten.data.model.GetRecentImagesResponseDo
@@ -23,10 +22,13 @@ class ImagesViewModel @Inject constructor(
     private var _uiState = MutableStateFlow<UiState<GetRecentImagesResponseDo>>(UiState.Loading)
     val uiState: StateFlow<UiState<GetRecentImagesResponseDo>> = _uiState
 
+    private var _uiTitle = MutableStateFlow<String?>(null)
+    val uiTitle: StateFlow<String?> = _uiTitle
+
     init {
         getRecentImages()
     }
-    fun getRecentImages() {
+    private fun getRecentImages() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
             getTrendingGifsUseCase.getAction()
@@ -35,9 +37,12 @@ class ImagesViewModel @Inject constructor(
                     _uiState.value = UiState.Error(it.toString())
                 }
                 .collect {
-                    Log.e("getRecentImages()","called")
                     _uiState.value = UiState.Success(it)
                 }
         }
+    }
+
+    fun setTitle(title:String) {
+        _uiTitle.value = title
     }
 }

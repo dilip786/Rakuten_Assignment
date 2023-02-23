@@ -3,4 +3,14 @@
     <string name="header_text">Header</string>
     <string name="title">Title</string>
     <string name="error">Error</string>
+    <string name="id">id: %s</string>
+    <string name="owner">owner: %s</string>
+    <string name="secret">secret: %s</string>
+    <string name="server">server: %s</string>
+    <string name="farm">farm: %d</string>
+    <string name="is_public">ispublic: %d</string>
+    <string name="is_friend">isfriend: %d</string>
+    <string name="is_family">isfamily: %d</string>
+    <string name="title_des">Title: %s</string>
+
 </resources>
