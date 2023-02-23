@@ -2,7 +2,6 @@ package com.android.rakuten.view.fragments
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.android.rakuten.data.model.Photo
 import com.android.rakuten.databinding.DetailsFragmentBinding
-import com.android.rakuten.databinding.ListFragmentBinding
 import com.android.rakuten.viewmodel.ImagesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,6 +38,5 @@ class DetailFragment : Fragment()  {
         } else {
             arguments?.getSerializable(ListFragment.photoObject) as? Photo
         }
-        Log.e("arguments","are: $photo")
     }
 }
