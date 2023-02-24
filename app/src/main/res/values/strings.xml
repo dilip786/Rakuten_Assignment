@@ -14,4 +14,5 @@
     <string name="title_des">Title: %s</string>
     <string name="network_error">Please check internet connection and try again.</string>
     <string name="something_wrong">something went wrong please try again</string>
+    <string name="retry">Retry</string>
 </resources>

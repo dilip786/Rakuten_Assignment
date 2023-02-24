@@ -5,11 +5,11 @@
     android:background="@color/white"
     android:layout_height="match_parent">
 
-    <com.android.rakuten.view.CustomListView
+    <ListView
         android:id="@+id/listImages"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@+id/bottomTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,12 +25,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/bottomTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/header_background_color"
         android:gravity="center"
-        android:padding="@dimen/title_padding"
+        android:padding="@dimen/bottom_title_padding"
         android:text="@string/title"
         android:textAppearance="?android:textAppearanceSmall"
         android:textColor="@color/white"
@@ -60,5 +60,18 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnRetry"
+        android:layout_width="wrap_content"
+        android:text="@string/retry"
+        android:padding="@dimen/title_padding"
+        style="@style/AppTheme.Button"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/errorText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

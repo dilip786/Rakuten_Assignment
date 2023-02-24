@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso
 class ImageListAdapter(
     private val context: Context,
     private var data: ArrayList<Photo> = arrayListOf(),
-    private val onWishListCLickListener: (Photo) -> Unit,
+    private val onItemCLickListener: (Photo) -> Unit,
 ) : BaseAdapter() {
 
     override fun getCount(): Int {
@@ -40,8 +40,8 @@ class ImageListAdapter(
         val binding: ListItemBinding =
             ListItemBinding.inflate(LayoutInflater.from(context), parent, false)
         binding.tvTitle.text = data[position].title
-        binding.ivImage.setOnClickListener {
-            onWishListCLickListener.invoke(data[position])
+        binding.container.setOnClickListener {
+            onItemCLickListener.invoke(data[position])
         }
         Picasso.get()
             .load(getPhotoUrl(data[position]))

@@ -10,13 +10,13 @@ import androidx.fragment.app.activityViewModels
 import com.android.rakuten.R
 import com.android.rakuten.data.model.Photo
 import com.android.rakuten.databinding.DetailsFragmentBinding
-import com.android.rakuten.viewmodel.ImagesViewModel
+import com.android.rakuten.viewmodel.ImagesListViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
-    private val listViewModel: ImagesViewModel by activityViewModels()
+    private val listViewModel: ImagesListViewModel by activityViewModels()
     private lateinit var binding: DetailsFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,

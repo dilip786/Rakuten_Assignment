@@ -1,5 +1,6 @@
 package com.android.rakuten.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.rakuten.data.model.GetRecentImagesResponseDo
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ImagesViewModel @Inject constructor(
+class ImagesListViewModel @Inject constructor(
     private val getTrendingGifsUseCase: GetRecentImagesUseCase,
 ) : ViewModel() {
 
@@ -30,7 +31,7 @@ class ImagesViewModel @Inject constructor(
         getRecentImages()
     }
 
-    private fun getRecentImages() {
+    fun getRecentImages() {
         if (!NetworkUtils.isNetworkConnected()) {
             _uiState.value = UiState.Error("")
             return
