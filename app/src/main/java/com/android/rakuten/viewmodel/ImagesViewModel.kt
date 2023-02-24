@@ -31,7 +31,7 @@ class ImagesViewModel @Inject constructor(
     }
 
     private fun getRecentImages() {
-        if(!NetworkUtils.isNetworkConnected()){
+        if (!NetworkUtils.isNetworkConnected()) {
             _uiState.value = UiState.Error("")
             return
         }

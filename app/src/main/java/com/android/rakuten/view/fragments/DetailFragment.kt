@@ -44,17 +44,17 @@ class DetailFragment : Fragment() {
                 .load("https://live.staticflickr.com/${it.server}/${it.id}_${it.secret}_w.jpg")
                 .placeholder(R.drawable.place_holder_detailed_page)
                 .into(binding.ivPhotoImage)
-            binding.tvPhotoTitle.text = resources.getString(R.string.title_des, it.title?:"")
-            binding.tvPhotoId.text = resources.getString(R.string.id, it.id?:"")
-            binding.tvPhotoOwner.text = resources.getString(R.string.owner, it.owner?:"")
-            binding.tvPhotoSecret.text = resources.getString(R.string.secret, it.secret?:"")
-            binding.tvPhotoServer.text = resources.getString(R.string.server, it.server?:"")
+            binding.tvPhotoTitle.text = resources.getString(R.string.title_des, it.title ?: "")
+            binding.tvPhotoId.text = resources.getString(R.string.id, it.id ?: "")
+            binding.tvPhotoOwner.text = resources.getString(R.string.owner, it.owner ?: "")
+            binding.tvPhotoSecret.text = resources.getString(R.string.secret, it.secret ?: "")
+            binding.tvPhotoServer.text = resources.getString(R.string.server, it.server ?: "")
             binding.tvPhotoFarm.text = resources.getString(R.string.farm, it.farm)
-            binding.tvIsPublic.text = resources.getString(R.string.is_public, it.isPublic?:0)
-            binding.tvIsFriend.text = resources.getString(R.string.is_friend, it.isFriend?:0)
-            binding.tvIsFamily.text = resources.getString(R.string.is_family, it.isFamily?:0)
+            binding.tvIsPublic.text = resources.getString(R.string.is_public, it.isPublic ?: 0)
+            binding.tvIsFriend.text = resources.getString(R.string.is_friend, it.isFriend ?: 0)
+            binding.tvIsFamily.text = resources.getString(R.string.is_family, it.isFamily ?: 0)
             listViewModel.setTitle(it.title ?: resources.getString(R.string.title))
-        }?: run {
+        } ?: run {
             binding.viewGroup.visibility = View.GONE
             binding.errorText.visibility = View.VISIBLE
             binding.errorText.text = resources.getString(R.string.something_wrong)
