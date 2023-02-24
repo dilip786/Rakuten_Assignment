@@ -25,6 +25,6 @@ Sample project using flickr api to get recent images list.
 
 ### Demo Videos
 
-[![Watch the video](https://user-images.githubusercontent.com/10658016/221136158-ede1c2b5-6ae6-4061-943c-1e20655bab3b.mp4)
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://user-images.githubusercontent.com/10658016/221136158-ede1c2b5-6ae6-4061-943c-1e20655bab3b.mp4)
 
  
