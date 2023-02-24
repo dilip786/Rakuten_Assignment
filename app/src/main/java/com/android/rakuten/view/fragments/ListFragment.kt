@@ -98,8 +98,10 @@ class ListFragment : Fragment() {
         binding.listImages.visibility = View.GONE
         binding.errorText.visibility = View.GONE
         binding.btnRetry.visibility = View.GONE
+        binding.bottomTitle.visibility = View.GONE
         when (uiState) {
             is UiState.Success -> {
+                binding.bottomTitle.visibility = View.VISIBLE
                 binding.quickReturnView.visibility = View.VISIBLE
                 binding.listImages.visibility = View.VISIBLE
             }
