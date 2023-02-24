@@ -73,9 +73,12 @@ class ListFragment : Fragment() {
                             binding.quickReturnView
                         )
                     }
-                    is UiState.Loading -> {
-                    }
+                    is UiState.Loading -> {}
                     is UiState.Error -> {
+                        binding.errorText.text  =  when{
+                            it.message.isEmpty() ->  resources.getString(R.string.network_error)
+                            else ->  it.message
+                        }
                     }
                 }
             }

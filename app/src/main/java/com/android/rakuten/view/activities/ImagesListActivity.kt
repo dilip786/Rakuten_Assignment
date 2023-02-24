@@ -1,11 +1,8 @@
 package com.android.rakuten.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.android.rakuten.R
-import com.android.rakuten.view.fragments.ListFragment
-import com.android.rakuten.viewmodel.ImagesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

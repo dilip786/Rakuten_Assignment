@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.rakuten.data.model.GetRecentImagesResponseDo
 import com.android.rakuten.data.usecases.GetRecentImagesUseCase
+import com.android.rakuten.utils.NetworkUtils
 import com.android.rakuten.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,12 @@ class ImagesViewModel @Inject constructor(
     init {
         getRecentImages()
     }
+
     private fun getRecentImages() {
+        if(!NetworkUtils.isNetworkConnected()){
+            _uiState.value = UiState.Error("")
+            return
+        }
         viewModelScope.launch {
             _uiState.value = UiState.Loading
             getTrendingGifsUseCase.getAction()
@@ -42,7 +48,7 @@ class ImagesViewModel @Inject constructor(
         }
     }
 
-    fun setTitle(title:String) {
+    fun setTitle(title: String) {
         _uiTitle.value = title
     }
 }

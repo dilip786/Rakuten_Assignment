@@ -9,7 +9,7 @@ data class GetRecentImagesResponseDo(
 
     @SerializedName("stat")
     var stat: String? = null,
-): Serializable
+) : Serializable
 
 data class Photos(
     @SerializedName("page")
@@ -26,7 +26,7 @@ data class Photos(
 
     @SerializedName("photo")
     var photosList: ArrayList<Photo> = arrayListOf(),
-):Serializable
+) : Serializable
 
 data class Photo(
     @SerializedName("id")
@@ -48,11 +48,11 @@ data class Photo(
     var title: String? = null,
 
     @SerializedName("ispublic")
-    var ispublic: Int? = null,
+    var isPublic: Int? = null,
 
     @SerializedName("isfriend")
-    var isfriend: Int? = null,
+    var isFriend: Int? = null,
 
     @SerializedName("isfamily")
-    var isfamily: Int? = null,
-): Serializable
+    var isFamily: Int? = null,
+) : Serializable

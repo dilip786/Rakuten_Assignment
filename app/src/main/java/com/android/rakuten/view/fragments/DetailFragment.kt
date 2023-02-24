@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailFragment : Fragment()  {
+class DetailFragment : Fragment() {
     private val listViewModel: ImagesViewModel by activityViewModels()
     private lateinit var binding: DetailsFragmentBinding
     override fun onCreateView(
@@ -30,12 +30,11 @@ class DetailFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        //initObserver()
     }
 
     private fun initViews() {
         val photo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getSerializable(ListFragment.photoObject,Photo::class.java)
+            arguments?.getSerializable(ListFragment.photoObject, Photo::class.java)
         } else {
             arguments?.getSerializable(ListFragment.photoObject) as? Photo
         }
@@ -43,17 +42,22 @@ class DetailFragment : Fragment()  {
         photo?.let {
             Picasso.get()
                 .load("https://live.staticflickr.com/${it.server}/${it.id}_${it.secret}_w.jpg")
+                .placeholder(R.drawable.place_holder_detailed_page)
                 .into(binding.ivPhotoImage)
-            binding.tvPhotoTitle.text = resources.getString(R.string.title_des, it.title)
-            binding.tvPhotoId.text = resources.getString(R.string.id, it.id)
-            binding.tvPhotoOwner.text = resources.getString(R.string.owner, it.owner)
-            binding.tvPhotoSecret.text = resources.getString(R.string.secret, it.secret)
-            binding.tvPhotoServer.text = resources.getString(R.string.server, it.server)
+            binding.tvPhotoTitle.text = resources.getString(R.string.title_des, it.title?:"")
+            binding.tvPhotoId.text = resources.getString(R.string.id, it.id?:"")
+            binding.tvPhotoOwner.text = resources.getString(R.string.owner, it.owner?:"")
+            binding.tvPhotoSecret.text = resources.getString(R.string.secret, it.secret?:"")
+            binding.tvPhotoServer.text = resources.getString(R.string.server, it.server?:"")
             binding.tvPhotoFarm.text = resources.getString(R.string.farm, it.farm)
-            binding.tvIsPublic.text = resources.getString(R.string.is_public, it.ispublic)
-            binding.tvIsFriend.text = resources.getString(R.string.is_friend, it.isfriend)
-            binding.tvIsFamily.text = resources.getString(R.string.is_family, it.isfamily)
-            listViewModel.setTitle(it.title?:resources.getString(R.string.title))
+            binding.tvIsPublic.text = resources.getString(R.string.is_public, it.isPublic?:0)
+            binding.tvIsFriend.text = resources.getString(R.string.is_friend, it.isFriend?:0)
+            binding.tvIsFamily.text = resources.getString(R.string.is_family, it.isFamily?:0)
+            listViewModel.setTitle(it.title ?: resources.getString(R.string.title))
+        }?: run {
+            binding.viewGroup.visibility = View.GONE
+            binding.errorText.visibility = View.VISIBLE
+            binding.errorText.text = resources.getString(R.string.something_wrong)
         }
     }
 }

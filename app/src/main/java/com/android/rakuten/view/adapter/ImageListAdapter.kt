@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.android.rakuten.R
 import com.android.rakuten.data.model.Photo
 import com.android.rakuten.databinding.ListItemBinding
 import com.squareup.picasso.Picasso
@@ -46,6 +47,7 @@ class ImageListAdapter(
             .load(getPhotoUrl(data[position]))
             .resize(100, 100)
             .centerCrop()
+            .placeholder(R.drawable.place_holder)
             .into(binding.ivImage)
         return binding.root
     }

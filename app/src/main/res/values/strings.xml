@@ -12,5 +12,6 @@
     <string name="is_friend">isfriend: %d</string>
     <string name="is_family">isfamily: %d</string>
     <string name="title_des">Title: %s</string>
-
+    <string name="network_error">Please check internet connection and try again.</string>
+    <string name="something_wrong">something went wrong please try again</string>
 </resources>
